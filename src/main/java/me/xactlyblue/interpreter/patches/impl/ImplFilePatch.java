@@ -113,8 +113,7 @@ public class ImplFilePatch implements Patch {
                 String withoutSymbol = line.replaceFirst("[+]", " ");
 
                 if (FilterUtils.isLineDeleted(deletedLines, withoutSymbol)) {
-                    System.out.println("A line was replaced:");
-                    System.out.println(withoutSymbol);
+                    FilterUtils.getDeletedLine(deletedLines, withoutSymbol).setReplaced(true);
                 }
             }
 

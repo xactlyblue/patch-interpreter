@@ -9,6 +9,8 @@ import java.util.List;
 
 public class WhitespaceInterpreter implements PatchInterpreter, DeletedPatchInterpreter {
 
+    // TODO: Track changes that specifically have to do with white spaces being turned to tabs
+
     @Override
     public void interpret(DeletedLine deletedLine, HashMap<Integer, DeletedLine> deletedLines, List<String> finalLines) {
 
@@ -16,7 +18,7 @@ public class WhitespaceInterpreter implements PatchInterpreter, DeletedPatchInte
 
     @Override
     public void interpret(int number, String line) {
-        
+
     }
 
 }
