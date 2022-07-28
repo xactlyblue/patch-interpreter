@@ -14,6 +14,17 @@ public class FileUtils {
      * https://www.tutorialspoint.com/Counting-number-of-characters-in-text-file-using-java
      */
 
+    public static BufferedWriter getBufferedWriter(File file) {
+        try {
+            FileWriter fileWriter = new FileWriter(file);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+
+            return bufferedWriter;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static BufferedReader getBufferedReader(File file) {
         try {
             FileInputStream fileInputStream = new FileInputStream(file);
