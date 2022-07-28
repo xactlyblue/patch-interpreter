@@ -4,6 +4,7 @@ import me.xactlyblue.interpreter.patches.Patch;
 import me.xactlyblue.interpreter.patches.PatchBuilder;
 import me.xactlyblue.interpreter.patches.datatypes.DeletedLine;
 import me.xactlyblue.interpreter.patches.interpreters.DeletedPatchInterpreter;
+import me.xactlyblue.interpreter.patches.interpreters.PatchInterpreter;
 
 import java.util.HashMap;
 import java.util.List;
@@ -29,17 +30,13 @@ public class Main {
             throw new RuntimeException("Invalid file provided - must end with '.patch'");
 
         PatchBuilder patchBuilder = new PatchBuilder(filePath + fileName);
-        patchBuilder.addInterpreter(new DeletedPatchInterpreter() {
+        patchBuilder.addInterpreter(new PatchInterpreter() {
             @Override
-            public void interpret(DeletedLine deletedLine, HashMap<Integer, DeletedLine> deletedLines, List<String> finalLines) {
-                System.out.println("Line was replaced - " + deletedLine.getNumber() + " - " + deletedLine.getLine());
+            public void interpret(int number, String line) {
+                System.out.println("Line interpreted! [" + number + ", " + line + "]");
             }
         });
         Patch patch = patchBuilder.build();
-    }
-
-    private static void writeFilteredToFile(Patch patch) {
-
     }
 
     private static boolean isFilePath(String filePath) {
