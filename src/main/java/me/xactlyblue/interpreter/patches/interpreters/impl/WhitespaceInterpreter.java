@@ -41,8 +41,6 @@ public class WhitespaceInterpreter implements PatchInterpreter {
         HashMap<Integer, String> allowedDeletedLines = new HashMap<>();
 
         for (int index = 0; index < totalLines; index++) {
-            System.out.println("i: " + index);
-
             String neutralLine = neutralLines.get(index);
             String addedLine = addedLines.get(index);
             String deletedLine = deletedLines.get(index);

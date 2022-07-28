@@ -93,8 +93,6 @@ public class ImplFilePatch implements Patch {
             discardedLines.add(index);
             linesToBeDiscarded.remove(index);
             duplicatedLines.remove(modifiedIndex);
-
-            System.out.println("Discarded line: " + index);
         }
 
         /* Keep track of the new set of lines, after initial filtering for junk, and start keeping track of deleted lines! */

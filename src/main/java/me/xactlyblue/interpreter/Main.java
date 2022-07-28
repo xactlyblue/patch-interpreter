@@ -42,6 +42,8 @@ public class Main {
         if (!isPatchFile(fileName))
             throw new RuntimeException("Invalid file provided - must end with '.patch'");
 
+        System.out.println("Creating patch and instantiating whitespace interpreter...");
+
         WhitespaceInterpreter whitespaceInterpreter = new WhitespaceInterpreter();
 
         PatchBuilder patchBuilder = new PatchBuilder(filePath + fileName);
@@ -49,17 +51,20 @@ public class Main {
 
         Patch patch = patchBuilder.build();
 
+        System.out.println("Cleaning up and creating whitespace file...");
+
         createWhitespaceFile(
                 whitespaceInterpreter.reformatLinesWithoutWhitespace(),
                 filePath,
                 fileName
         );
+
+        printSuccessMessage();
     }
 
     private static void createWhitespaceFile(List<String> formatted, String filePath, String fileName) {
         try {
             String correctedFilePath = filePath + fileName.replaceAll("[.]patch$", "-whitespace.patch");
-            System.out.println(correctedFilePath);
             File file = new File(correctedFilePath);
 
             if (file.createNewFile()) {
@@ -80,6 +85,15 @@ public class Main {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private static void printSuccessMessage() {
+        System.out.println("Success! In the provided file path, there should be a new file containing the reformatted patch information!");
+        System.out.println("The whitespace file will un-mark the specific changes that only change a line's whitespace.");
+        System.out.println("This means it should clean up the differences (assuming the base version was changed to automatically have the tabs).");
+        System.out.println("\n[NOTE] If you plan to commit this or apply this to a git repository, please make sure to copy over the");
+        System.out.println("first few lines of the file (I believe they hold the commit name and description information) to the whitespaced version.");
+        System.out.println("I'm not entirely sure how important it is, but I'd recommend being safe and having it there just in case.");
     }
 
     private static boolean isFilePath(String filePath) {
